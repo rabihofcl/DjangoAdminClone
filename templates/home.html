@@ -1,0 +1,5 @@
+<h2>Hello, {{user.username}}</h2>
+<form action="signout" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Signout">
+</form>

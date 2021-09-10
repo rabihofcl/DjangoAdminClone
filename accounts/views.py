@@ -5,6 +5,7 @@ from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
+@never_cache
 def signin(request):
     if request.session.has_key('user_login'):
         return redirect('home')
@@ -26,6 +27,7 @@ def signin(request):
             return render(request,'signin.html')
 
 
+@never_cache
 def signup(request):
     if request.session.has_key('user_login'):
         return redirect('home')
@@ -56,7 +58,7 @@ def signup(request):
             return render(request,'signup.html')
 
 
-
+@never_cache
 def home(request):
     if request.session.has_key('user_login'):
         return render(request,'home.html')
@@ -65,7 +67,7 @@ def home(request):
 
 
 
-
+@never_cache
 def signout(request):
     if request.session.has_key('user_login'):
         #request.session.flush()

@@ -4,10 +4,10 @@ from django.contrib.auth.models import User,auth
 
 #from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
-#from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import never_cache
 
 # Create your views here.
-
+@never_cache
 def ad_signin(request):
     if request.session.has_key('admin_login'):
         return redirect('ad_home')
@@ -35,6 +35,7 @@ def ad_signin(request):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def ad_home(request):
     request.session['admin_login'] = 'admin_login'
     if request.session.has_key('admin_login'):
@@ -52,6 +53,7 @@ def ad_home(request):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def user_edit(request, user_id):
     if request.session.has_key('admin_login'):
         user =User.objects.get(pk=user_id)
@@ -62,6 +64,7 @@ def user_edit(request, user_id):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def update_user(request, user_id):
     if request.session.has_key('admin_login'):
         if request.method == 'POST':
@@ -74,6 +77,7 @@ def update_user(request, user_id):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def cancel_edit(request):
     if request.session.has_key('admin_login'):
         return redirect('ad_home')
@@ -82,6 +86,7 @@ def cancel_edit(request):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def user_delete(request, user_id):
     if request.session.has_key('admin_login'):
         User.objects.filter(id=user_id).delete()
@@ -91,6 +96,7 @@ def user_delete(request, user_id):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def ad_signup(request):
     if request.session.has_key('admin_login'):
         if request.method == 'POST':
@@ -122,6 +128,7 @@ def ad_signup(request):
 
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
+@never_cache
 def ad_signout(request):
     if request.session.has_key('admin_login'):
         #request.session.flush()

@@ -17,7 +17,8 @@
   <header style="background-color: rgb(93, 145, 158); height: 100px; ">
     <div class="container">
       <div class="col-md-12 " style="display: flex; justify-content: end;">
-        <form action="{% url 'ad_signout' %}">
+        <form action="{% url 'ad_signout' %}" method="POST">
+          {% csrf_token %}
           <button
             style="background-color: rgb(252, 252, 252); border: none; border-radius: 5px; padding: 5px 10px; color: rgb(67, 100, 150); margin-top: 25px;"
             type="submit">Logout</button>
@@ -40,7 +41,8 @@
                 class="fas fa-user-plus me-2"></i>Add User</a></button>
         </div>
         <div class="col-md-6" style="display: flex; justify-content: end;">
-          <form action="{% url 'ad_home' %}" method="GET">
+          
+          <form action="{% url 'ad_home' %}" method="POST">
             {% csrf_token %}
             <input class="me-auto" type="text" name="searchkey" placeholder="search" style="padding: 3px 10px;">
             <button
@@ -48,7 +50,8 @@
               type="submit"><i class="fas fa-search"></i></button>
           </form>
           <div>
-            <form action="{% url 'ad_home' %}">
+            <form action="{% url 'ad_home' %}" method="POST">
+              {% csrf_token %}
               <button
                 style="background-color: rgb(67, 100, 150); border: none; border-radius: 5px; padding: 5px 10px; color: white; margin-left: 5px; "
                 type="submit">Show all</button>
@@ -67,29 +70,31 @@
       <table class="table mt-3">
         <thead>
           <tr>
-            <th scope="col">No.</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email ID</th>
-            <th scope="col">Super user</th>
+            <th scope="col">No.<a href=""><i class="fas fa-sort"></i></a></th>
+            <th scope="col">Username <a href=""><i class="fas fa-sort"></i></a></th>
+            <th scope="col">Email ID <a href=""><i class="fas fa-sort"></i></a></th>
+            <th scope="col">Super user <a href=""><i class="fas fa-sort"></i></a></th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         {% if users %}
         <tbody>
           {% for user in users %}
-          {% if user.is_superuser == False %}
+
           <tr>
             <th scope="row">{{user.id}}</th>
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
             <td>{{user.is_superuser}}</td>
             <td>
+              {% if user.is_superuser == False %}
               <a href="{% url 'user_edit' user.id %}" class="pe-5"><i class="fas fa-user-edit"></i></a>
               <a onclick="return confirm('Are you sure to delete?')" href="{% url 'user_delete' user.id%}"><i
                   class="fas fa-trash-alt"></i></a>
+              {% endif %}
             </td>
           </tr>
-          {% endif %}
+
           {% endfor %}
           {% else %}
           <tr>
@@ -111,11 +116,3 @@
 </body>
 
 </html>
-
-
-
-
-<!-- <form action="ad_signout" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="signout">
-</form> -->

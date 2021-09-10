@@ -75,10 +75,6 @@
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password" id="your_pass" placeholder="Password"/>
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div> -->
                             <div>
                                 {% for message in messages %}
                                 <h3>{{ message }}</h3>
@@ -88,14 +84,11 @@
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                             </div>
                         </form>
-                        <!-- <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                            </ul>
-                        </div> -->
+                        <br>
+                        <button style="background-color: rgb(67, 100, 150); border: none; border-radius: 5px; padding: 20px 50px; "><a
+                            style="text-decoration: none;color: white;" href="{% url 'ad_signin' %}"><i
+                              class="fas fa-user-plus me-2"></i>Admin Login</a></button>
+                        
                         <br><br>
                         <div>
                             <a href="{% url 'signup' %}" class="signup-image-link">Create an account</a>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect 
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
-
+from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
@@ -68,7 +68,9 @@ def home(request):
 
 def signout(request):
     if request.session.has_key('user_login'):
+        #request.session.flush()
         del request.session['user_login']
+        #auth.logout(request)
         return redirect('signin')
     else:
         return redirect('signin')

@@ -88,6 +88,7 @@
 
 <body>
     <form action="google.com" name="contact-form" id="submit-form" method="POST">
+        {% csrf_token %}
         <input type="text" name="name" id="name" placeholder="Your Full Name" style="padding-left: 20px;"><br><br>
         <input type="email" name="email" id="email" placeholder="Your Email Address"
             style="padding-left: 20px;"><br><br>

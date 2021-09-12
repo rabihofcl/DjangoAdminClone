@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
+from products.models import Product_Category, Product
 
 
 # Create your views here.
@@ -61,7 +62,9 @@ def signup(request):
 @never_cache
 def home(request):
     if request.session.has_key('user_login'):
-        return render(request,'home.html')
+        categories = Product_Category.objects.all()
+        products = Product.objects.all
+        return render(request,'home.html',{'categories': categories, 'products': products})
     else:
         return render(request,'signin.html')
 

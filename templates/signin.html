@@ -57,7 +57,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
+                        <figure><img src="{% static 'images/signin_image.jpg' %}" alt="sing up image"></figure>
                         
                     </div>
 
@@ -67,14 +67,16 @@
 
                         <form method="POST" class="register-form" id="sigin-form" action="signin">
                             {% csrf_token %}
-                            <div class="form-group">
+                            <div >
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="username" id="your_name" placeholder="Your Username"/>
                             </div>
-                            <div class="form-group">
+                            <br>
+                            <div >
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password" id="your_pass" placeholder="Password"/>
                             </div>
+                            <br>
                             <div>
                                 {% for message in messages %}
                                 <h3>{{ message }}</h3>

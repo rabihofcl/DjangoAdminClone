@@ -41,10 +41,10 @@ def ad_home(request):
     if request.session.has_key('admin_login'):
         if 'searchkey' in request.POST:
             searchkey = request.POST['searchkey']
-            users = User.objects.order_by('id').filter(Q(username__contains=searchkey) | Q(email__contains=searchkey) | Q(id__contains=searchkey))
+            users = User.objects.order_by('id').filter(Q(username__icontains=searchkey) | Q(email__icontains=searchkey) | Q(id__icontains=searchkey))
             return render(request,'ad_home.html',{'users':users} )
         else:
-            users = User.objects.order_by('-id').all()
+            users = User.objects.order_by('id').all()
             return render(request,'ad_home.html',{'users':users} )
     else:
         return render(request,'ad_signin.html')
@@ -54,9 +54,9 @@ def ad_home(request):
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
 @never_cache
-def user_edit(request, user_id):
+def user_edit(request, id):
     if request.session.has_key('admin_login'):
-        user =User.objects.get(pk=user_id)
+        user =User.objects.get(pk=id)
         return render(request,'user_edit.html',{'user' : user})
     else:
         return render(request,'ad_signin.html')
@@ -65,13 +65,23 @@ def user_edit(request, user_id):
 
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
 @never_cache
-def update_user(request, user_id):
+def update_user(request, id):
     if request.session.has_key('admin_login'):
         if request.method == 'POST':
             username = request.POST['username']
             email = request.POST['email']
-            User.objects.filter(pk=user_id).update(username=username, email=email)
-            return redirect('ad_home')
+            if User.objects.exclude(id=id).filter(username=username).exists():
+                messages.info(request,'Username already taken')
+                return redirect('update_user',id=id)
+            elif User.objects.exclude(id=id).filter(email=email).exists():
+                messages.info(request,'Email already taken')
+                return redirect('update_user',id=id)
+            else:
+                User.objects.filter(pk=id).update(username=username, email=email)
+                return redirect('ad_home')
+        else:
+            user =User.objects.get(pk=id)
+            return render(request,'user_edit.html',{'user' : user})
     else:
         return render(request,'ad_signin.html')
 

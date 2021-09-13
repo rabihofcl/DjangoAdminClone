@@ -20,33 +20,34 @@
 
         </div>
         <div class="md-col-6">
-
-          <form action="{% url 'update_user' user.id %}" method="POST">
-            {% csrf_token %}
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
-              <div class="col-sm-10">
-                <input name="username" type="text" class="form-control" id="inputEmail3" value="{{user.username}}">
+          <div class="container">
+            <form action="{% url 'update_user' user.id %}" method="POST">
+              {% csrf_token %}
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input name="username" type="text" class="form-control" id="inputEmail3" value="{{user.username}}">
+                </div>
               </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-10">
-                <input name="email" type="email" class="form-control" id="inputPassword3" value="{{user.email}}">
+              <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input name="email" type="email" class="form-control" id="inputPassword3" value="{{user.email}}">
+                </div>
               </div>
-            </div>
-            <div style="display: flex; justify-content: center;">
-              {% for message in messages %}
-              <h3>{{ message }}</h3>
-              {% endfor %}
-            </div>
-            <div style="display: flex; justify-content: center;">
-              <button onclick="return confirm('Are you sure to apply changes?')" type="submit"
-                class="btn btn-success me-5">Apply Changes</button>
-              <a href="{% url 'cancel_edit' %}" class="btn btn-primary me-5">Cancel</a>
-            </div>
-
-          </form>
+              <div style="display: flex; justify-content: center;">
+                {% for message in messages %}
+                <h6>{{ message }}</h6>
+                {% endfor %}
+              </div>
+              <div style="display: flex; justify-content: center;">
+                <button onclick="return confirm('Are you sure to apply changes?')" type="submit"
+                  class="btn btn-success me-5">Apply Changes</button>
+                <a href="{% url 'cancel_edit' %}" class="btn btn-primary me-5">Cancel</a>
+              </div>
+  
+            </form>
+          </div>
         </div>
         <div class="md-col-3">
 

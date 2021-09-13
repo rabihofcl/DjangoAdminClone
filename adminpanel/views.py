@@ -39,13 +39,8 @@ def ad_signin(request):
 def ad_home(request):
     request.session['admin_login'] = 'admin_login'
     if request.session.has_key('admin_login'):
-        if 'searchkey' in request.POST:
-            searchkey = request.POST['searchkey']
-            users = User.objects.order_by('id').filter(Q(username__icontains=searchkey) | Q(email__icontains=searchkey) | Q(id__icontains=searchkey))
-            return render(request,'ad_home.html',{'users':users} )
-        else:
-            users = User.objects.order_by('id').all()
-            return render(request,'ad_home.html',{'users':users} )
+        users = User.objects.order_by('id').all()
+        return render(request,'ad_home.html',{'users':users} )
     else:
         return render(request,'ad_signin.html')
     

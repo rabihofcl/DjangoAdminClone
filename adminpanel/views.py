@@ -20,6 +20,7 @@ def ad_signin(request):
             
             if user is not None:
                 if user.is_superuser == True:
+                    request.session['admin_login'] = 'admin_login'
                     auth.login(request, user)
                     return redirect('ad_home')
                 else:
@@ -37,7 +38,7 @@ def ad_signin(request):
 #@user_passes_test(lambda user: user.is_superuser,login_url='ad_signin')
 @never_cache
 def ad_home(request):
-    request.session['admin_login'] = 'admin_login'
+    
     if request.session.has_key('admin_login'):
         users = User.objects.order_by('id').all()
         return render(request,'ad_home.html',{'users':users} )
